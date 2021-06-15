@@ -14,13 +14,13 @@ $(document).ready(function () {
         $("#totalConfirmed").val(data.Global.TotalConfirmed);
         $("#totalDeaths").val(data.Global.TotalDeaths);
         $("#totalRecovered").val(data.Global.TotalRecovered);
+        var date= data.Global.Date;
+        var fecha=formatDate(date);
+        $("#titulo-resumen-global").val(fecha);
 
         var listaPaises= data.Countries;
         var listaPaisesSort=listaPaises.sort(compare);
         var contentHtml="";
-        var x = "/detallePais/detallePais.html?name=valor1";
-        var y = "&v2=valor2";
-        var y = "&p=2";
         $.each(listaPaisesSort, function (i, valor) {
             contentHtml += "<tr>";
             contentHtml += "<td>" + (i + 1) + "</td>";
@@ -55,5 +55,7 @@ function compare(a, b) {
 }
 
 function formatDate(date) {
-    // TODO
+    var mat=date.split("T");
+    var fecha=mat[0];
+    return fecha;
 }
