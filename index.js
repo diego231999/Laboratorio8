@@ -9,20 +9,7 @@ $(document).ready(function () {
         url: "https://api.covid19api.com/summary"
     }).done(function (data) {
 
-    /*    const global = {
-            "#newConfirmed": data.Global.NewConfirmed,
-            "#newDeaths": data.Global.NewDeaths,
-            "#newRecovered": data.Global.NewRecovered,
-            "#totalConfirmed": data.Global.TotalConfirmed,
-            "#totalDeaths": data.Global.TotalDeaths,
-            "#totalRecovered": data.Global.TotalRecovered
-        };
-
-        for (let key of global){
-            $(key).val(global[key]).html(global[key]);
-        }
-*/
-        $("#newConfirmed").val(data.Global.NewConfirmed).html(data.Global.NewConfirmed);
+     $("#newConfirmed").val(data.Global.NewConfirmed).html(data.Global.NewConfirmed);
         $("#newDeaths").val(data.Global.NewDeaths).html(data.Global.NewDeaths);
         $("#newRecovered").val(data.Global.NewRecovered).html(data.Global.NewRecovered);
         $("#totalConfirmed").val(data.Global.TotalConfirmed).html(data.Global.TotalConfirmed);
@@ -39,8 +26,9 @@ $(document).ready(function () {
         var url = window.location.href;
 
         $.each(listaPaisesSort, function (i, valor) {
-            var nextPath = "detallePais/detallePais.html?name="+valor["Country"]+"&slug="+valor["Slug"]+"&countryCode="+valor["CountryCode"]+"&caseCovid=confirmed";
-            var newUrl = url.replace("index.html",nextPath);
+            var nextPath = `detallePais/detallePais.html?name=`+valor["Country"]+`&slug=`+valor["Slug"]+`&countryCode=`+valor["CountryCode"]+`&caseCovid=confirmed`;
+            var nextPathEnc = nextPath.replaceAll(' ','%20')
+            var newUrl = url.replace("index.html",nextPathEnc);
             contentHtml += "<tr>";
             contentHtml += "<td>" + (i + 1) + "</td>";
             contentHtml += "<td>" + valor.Country + "</td>";

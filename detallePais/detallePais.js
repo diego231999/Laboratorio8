@@ -45,8 +45,7 @@ function seleccionarCasos() {
 
 // se muestra la tabla de casos
 function obtenerDataPais(caseCovid) {
-
-    console.log(caseCovid);
+;
     if(caseCovid === "confirmed"){
         caseCovid == "confirmed";
     }
@@ -61,13 +60,9 @@ function obtenerDataPais(caseCovid) {
         url: "https://api.covid19api.com/total/dayone/country/" + slug + "/status/" + caseCovid
     }).done(function (data) {
         let contentHTML = "";
-        let df = "";
-        console.log(slug);
-        console.log(caseCovid);
         $.each(data, function (i, casoCovid){
-            df = formatDate(casoCovid["Date"]);
             contentHTML += "<tr>";
-            contentHTML += "<td>"+df+"</td>";
+            contentHTML += "<td>"+formatDate(casoCovid["Date"])+"</td>";
             contentHTML += "<td>"+casoCovid["Cases"]+"</td>";
             contentHTML += "</tr>";
         });
