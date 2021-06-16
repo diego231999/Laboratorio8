@@ -91,7 +91,5 @@ function sortingJson(TotalConfirmed){
 }
 
 function formatDate(date) {
-    var mat=date.split("T");
-    var fecha=mat[0];
-    return fecha;
+    return date.split("T")[0].replaceAll("-","/");
 }

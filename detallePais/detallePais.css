@@ -14,3 +14,7 @@ body {
 .div-bandera {
     display: inline-block;
 }
+.img-bandera{
+    width: 150px;
+    height: 100px;
+}
