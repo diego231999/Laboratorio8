@@ -1,10 +1,20 @@
 
 $(document).ready(function () {
     const urlParams = new URLSearchParams(window.location.search);
-    const name = urlParams.get('name');
-    //TODO
-    var url = "";
 
+    // se obtienen los parametros
+    const nameCountry =urlParams.get('name');
+    const countryCode = urlParams.get('countryCode');
+    const slug = urlParams.get('slug');
+    const caseCovid = urlParams.get('caseCovid');
+
+
+    var url = "https://api.covid19api.com/total/dayone/country/"+slug+"/status/"+caseCovid; // url a usar para la data
+
+    // para la imagen de la bandera
+    var img = "https://www.countryflags.io/"+countryCode+"/flat/64.png"; // url a usar para las imagenes
+    $("#bandera-div").append("<img alt='imagen-bandera' src='"+img+"' >");
+    $("#redirect-detalle").attr("href", "../detallePais/detallePais.html?name="+"&countryCode="+countryCode+nameCountry+"&slug="+slug+"&caseCovid="+caseCovid);
 
     // set the dimensions and margins of the graph
     var margin = { top: 20, right: 20, bottom: 30, left: 100 },
@@ -13,8 +23,7 @@ $(document).ready(function () {
 
     // parse the date / time
     var parseTime = d3.timeParse("%d-%m-%Y");
-    // var parseTime = d3.timeParse("%d-%b-%y");
-
+    //var parseTime = d3.timeParse("%d-%b-%y");
     // set the ranges
     var x = d3.scaleTime().range([0, width]);
     var y = d3.scaleLinear().range([height, 0]);
@@ -24,7 +33,7 @@ $(document).ready(function () {
         .x(function (d) { return x(d.date); })
         .y(function (d) { return y(d.cases); });
 
-    // append the svg obgect to the body of the page
+    // append the svg object to the body of the page
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
     var svg = d3.select("#div-grafico").append("svg")
@@ -37,10 +46,9 @@ $(document).ready(function () {
     // Get the data
     d3.json(url, function (error, data) {
         if (error) throw error;
-
         // format the data
         data.forEach(function (d) {
-            d.date = parseTime(formatDate(d.Date));
+            d.date = formatDate(d.Date);
             d.cases = d.Cases;
         });
 
@@ -69,5 +77,8 @@ $(document).ready(function () {
 });
 
 function formatDate(date) {
-    //TODO
+    date = date.slice(0, 10);
+    var componentesDate = date.split("-");
+    return new Date(componentesDate[0],componentesDate[1],componentesDate[2]);
+
 }
